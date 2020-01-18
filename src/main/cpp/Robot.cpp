@@ -1,9 +1,5 @@
-  #include "Robot.h"
 
-#include <iostream>
-
-#include <frc/smartdashboard/SmartDashboard.h>
-#include "ctre/Phoenix.h"
+#include "Robot.h"
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
@@ -50,13 +46,17 @@ float Robot::Deadzone(float input) {
 }
 
 void Robot::TeleopPeriodic() {
-  float left = Deadzone(joy.GetRawAxis(1));
-  float right = Deadzone(joy.GetRawAxis(3));
+  
+  fwd = Deadzone(joy.GetRawAxis(1));
+  turn = Deadzone(joy.GetRawAxis(4));
 
-  motorLeftFront.Set(ControlMode::PercentOutput, left);
-  motorLeftBack.Set(ControlMode::PercentOutput, left);
-  motorRightFront.Set(ControlMode::PercentOutput, right);
-  motorRightBack.Set(ControlMode::PercentOutput, right);
+  leftThrot = turn - fwd;
+  rightThrot = turn + fwd;
+
+  motorLeftFront.Set(ControlMode::PercentOutput, leftThrot);
+  motorLeftBack.Set(ControlMode::PercentOutput, leftThrot);
+  motorRightFront.Set(ControlMode::PercentOutput, rightThrot);
+  motorRightBack.Set(ControlMode::PercentOutput, rightThrot);
 }
 
 void Robot::TestPeriodic() {}

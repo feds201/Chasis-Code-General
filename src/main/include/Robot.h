@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string>
-
+#include <iostream>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "ctre/Phoenix.h"
 #include "frc/WPILib.h"
 #include <frc/TimedRobot.h>
@@ -23,9 +24,13 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
-  frc::Joystick joy {1};
-  WPI_TalonSRX motorLeftFront {0};
-  WPI_TalonSRX motorLeftBack {1};
-  WPI_TalonSRX motorRightFront {2};
-  WPI_TalonSRX motorRightBack {3};
+
+  float fwd, turn, leftThrot, rightThrot;
+
+  frc::Joystick joy{1};
+  
+  WPI_TalonSRX motorLeftFront{0};
+  WPI_TalonSRX motorLeftBack{1};
+  WPI_TalonSRX motorRightFront{2};
+  WPI_TalonSRX motorRightBack{3};
 };
