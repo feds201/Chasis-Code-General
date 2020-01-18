@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "ctre/Phoenix.h"
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
@@ -33,7 +34,9 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+
+}
 
 void Robot::TestPeriodic() {}
 
