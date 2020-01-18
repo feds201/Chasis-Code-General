@@ -1,4 +1,4 @@
-#include "Robot.h"
+  #include "Robot.h"
 
 #include <iostream>
 
@@ -34,8 +34,29 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {
+float Robot::Deadzone(float input) {
+  if (fabs(input) < .15) {
+    input = 0.0;
+  }
+  else {
+    if (input > 0) {
+      input = (input - .15) / (1 - .15);
+    }
+    else {
+      input = (input + .15) / (1 - .15);
+    }
+  }
+  return input;
+}
 
+void Robot::TeleopPeriodic() {
+  float left = Deadzone(joy.GetRawAxis(1));
+  float right = Deadzone(joy.GetRawAxis(3));
+
+  motorLeftFront.Set(ControlMode::PercentOutput, left);
+  motorLeftBack.Set(ControlMode::PercentOutput, left);
+  motorRightFront.Set(ControlMode::PercentOutput, right);
+  motorRightBack.Set(ControlMode::PercentOutput, right);
 }
 
 void Robot::TestPeriodic() {}
