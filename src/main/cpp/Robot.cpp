@@ -2,30 +2,25 @@
 #include "Robot.h"
 
 void Robot::RobotInit() {
-  m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-  m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+  motorRightFront.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+  motorRightBack.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+  motorLeftFront.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+  motorRightBack.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+
+  motorRightFront.SetSelectedSensorPosition(0);
+  motorRightBack.SetSelectedSensorPosition(0);
+  motorLeftFront.SetSelectedSensorPosition(0);
+  motorLeftBack.SetSelectedSensorPosition(0);
 }
 
 void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() {
-  m_autoSelected = m_chooser.GetSelected();
-  std::cout << "Auto selected: " << m_autoSelected << std::endl;
 
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
 }
 
 void Robot::AutonomousPeriodic() {
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+
 }
 
 void Robot::TeleopInit() {}
@@ -55,7 +50,7 @@ void Robot::TeleopPeriodic() {
 
   motorLeftFront.Set(ControlMode::PercentOutput, leftThrot);
   motorLeftBack.Set(ControlMode::PercentOutput, leftThrot);
-  motorRightFront.Set(ControlMode::PercentOutput, rightThrot);
+  motorRightFront.Set(ControlMode::PercentOutput, 1);
   motorRightBack.Set(ControlMode::PercentOutput, rightThrot);
 }
 
